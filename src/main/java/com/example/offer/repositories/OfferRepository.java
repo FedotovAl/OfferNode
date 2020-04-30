@@ -1,5 +1,6 @@
 package com.example.offer.repositories;
 
+import com.example.offer.communication_between_microservices.UtilEntity;
 import com.example.offer.entities.Characteristic;
 import com.example.offer.entities.Offer;
 import org.springframework.stereotype.Repository;
@@ -7,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -24,6 +26,18 @@ public class OfferRepository {
 
     public Offer getByID(int id){
         return entityManager.find(Offer.class, id);
+    }
+
+    //3.1
+    public List<Offer> getOffersForCustomer(List<UtilEntity> utilEntities){
+        List<Offer> offers = new ArrayList<>();
+        for (UtilEntity u : utilEntities){
+            offers.addAll(entityManager
+                    .createQuery("from Offer where paidTypeID=" + u.getId(),
+                                    Offer.class)
+                    .getResultList());
+        }
+        return offers;
     }
 
     public Offer add(Offer offer){
