@@ -1,6 +1,6 @@
 package com.example.offer.repositories;
 
-import com.example.offer.communication_between_microservices.UtilEntity;
+import com.example.offer.communication_between_microservices.dto.IdDto;
 import com.example.offer.entities.Characteristic;
 import com.example.offer.entities.Offer;
 import org.springframework.stereotype.Repository;
@@ -29,11 +29,11 @@ public class OfferRepository {
     }
 
     //3.1
-    public List<Offer> getOffersForCustomer(List<UtilEntity> utilEntities){
+    public List<Offer> getOffersForCustomer(List<IdDto> idDtoList){
         List<Offer> offers = new ArrayList<>();
-        for (UtilEntity u : utilEntities){
+        for (IdDto i : idDtoList){
             offers.addAll(entityManager
-                    .createQuery("from Offer where paidTypeID=" + u.getId(),
+                    .createQuery("from Offer where paidTypeID=" + i.getId(),
                                     Offer.class)
                     .getResultList());
         }

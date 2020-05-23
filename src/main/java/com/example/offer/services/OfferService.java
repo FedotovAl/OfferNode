@@ -1,5 +1,6 @@
 package com.example.offer.services;
 
+import com.example.offer.communication_between_microservices.dto.IdDto;
 import com.example.offer.entities.Categories;
 import com.example.offer.entities.Characteristic;
 import com.example.offer.entities.Offer;
@@ -33,6 +34,10 @@ public class OfferService {
 
     public Offer getOfferByID(int id){
         return offerRepository.getByID(id);
+    }
+
+    public List<Offer> getOffersForCustomer(List<IdDto> idDtoList){
+        return offerRepository.getOffersForCustomer(idDtoList);
     }
 
     //TODO

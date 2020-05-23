@@ -31,7 +31,6 @@ public class CharacteristicController {
     }
 
     @PostMapping("/characteristics")
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Characteristic> addCharacteristic(@RequestBody Characteristic characteristic){
         return new ResponseEntity<>(characteristicService.addNewCharacteristic(characteristic), HttpStatus.CREATED);
     }
